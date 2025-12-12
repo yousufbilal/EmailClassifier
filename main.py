@@ -31,12 +31,20 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 # print("Accuracy:", accuracy_score(y_test, y_pred))
-print("Confusion matrix:\n", confusion_matrix(y_test, y_pred))
+# print("Confusion matrix:\n", confusion_matrix(y_test, y_pred))
 # print("Predictions:", list(y_pred))
 # print("Actual:", list(y_test))
 
 
+def predict_email(email_text):
+    clean = (
+        email_text.lower()
+        .replace("\n", " ")
+        .replace("\r", " ")
+        .strip()
+    )
+    X_new = vectorizer.transform([clean])
+    return model.predict(X_new)[0]
 
-
-
-
+print(predict_email("Urgent: verify your account now"))
+print(predict_email("Hi team, meeting moved to 3pm tomorrow"))
